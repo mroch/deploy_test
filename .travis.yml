@@ -6,9 +6,11 @@ script: /bin/true
 
 deploy:
 - provider: script
-  script: false; DEPLOY1_STATUS=$?
+  skip_cleanup: true
+  script: echo "Should fail"; false; DEPLOY1_STATUS=$?
 - provider: script
-  script: true; DEPLOY2_STATUS=$?
+  skip_cleanup: true
+  script: echo "Should pass"; true; DEPLOY2_STATUS=$?
 
 after_deploy:
   - if [[ $DEPLOY1_STATUS -eq 0 && $DEPLOY2_STATUS -eq 0 ]]; then echo "passed"; else echo "one of the deploys failed"; travis_terminate 1; fi
