@@ -4,8 +4,15 @@ language: generic
 
 script: /bin/true
 
-deploy:
-  - provider: script
-    script: /bin/false
-  - provider: script
-    script: /bin/true
+jobs:
+  include:
+    - stage: Deploy 1
+      script: echo "Deploy 1"
+      deploy:
+      - provider: script
+        script: /bin/false
+    - stage: Deploy 2
+      script: echo "Deploy 2"
+      deploy:
+      - provider: script
+        script: /bin/true
