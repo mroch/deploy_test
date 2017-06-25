@@ -4,15 +4,11 @@ language: generic
 
 script: /bin/true
 
-jobs:
-  include:
-    - stage: Deploy 1
-      script: echo "Deploy 1"
-      deploy:
-      - provider: script
-        script: /bin/false
-    - stage: Deploy 2
-      script: echo "Deploy 2"
-      deploy:
-      - provider: script
-        script: /bin/true
+deploy:
+- provider: script
+  script: false; DEPLOY1_STATUS=$?
+- provider: script
+  script: true; DEPLOY2_STATUS=$?
+
+after_deploy:
+  - [[ $DEPLOY1_STATUS -eq 0 && $DEPLOY2_STATUS -eq 0 ]] || (echo "one of the deploys failed"; travis_terminate 1)
