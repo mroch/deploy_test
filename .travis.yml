@@ -4,19 +4,22 @@ language: generic
 
 script: /bin/true
 
-deploy:
-  - provider: script
-    skip_cleanup: true
-    script: echo "Not part of build stage"
-
 jobs:
   include:
-    - script: echo "Deploy 1"
+    - script: echo "Build"
+      deploy:
+      - provider: script
+        skip_cleanup: true
+        script: echo "Not part of build stage"
+
+    - stage: "Deploy"
+      script: echo "Deploy 1"
       deploy:
       - provider: script
         skip_cleanup: true
         script: echo "Should fail"; false
-    - script: echo "Deploy 2"
+    - stage: "Deploy"
+      script: echo "Deploy 2"
       deploy:
       - provider: script
         skip_cleanup: true
