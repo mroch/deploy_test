@@ -4,6 +4,11 @@ language: generic
 
 script: /bin/true
 
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: echo "Not part of build stage"
+
 jobs:
   include:
     - script: echo "Deploy 1"
