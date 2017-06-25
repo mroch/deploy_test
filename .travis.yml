@@ -11,4 +11,4 @@ deploy:
   script: true; DEPLOY2_STATUS=$?
 
 after_deploy:
-  - [[ $DEPLOY1_STATUS -eq 0 && $DEPLOY2_STATUS -eq 0 ]] || (echo "one of the deploys failed"; travis_terminate 1)
+  - if [[ $DEPLOY1_STATUS -eq 0 && $DEPLOY2_STATUS -eq 0 ]]; then echo "passed"; else echo "one of the deploys failed"; travis_terminate 1; fi
