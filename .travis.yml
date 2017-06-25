@@ -1,3 +1,9 @@
+sudo: false
+
+language: generic
+
+script: /bin/true
+
 deploy:
   - provider: script
     script: /bin/false
